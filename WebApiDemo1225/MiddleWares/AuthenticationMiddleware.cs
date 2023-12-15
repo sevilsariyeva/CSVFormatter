@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -15,11 +16,13 @@ namespace WebApiDemo1225.MiddleWares
 
         public async Task Invoke(HttpContext context)
         {
+            var authorizeAttribute = context.GetEndpoint()?.Metadata?.GetMetadata<AuthorizeAttribute>();
 
-            // yoxlayin ki eger SignIn action methoddusa
-            // onda 
-             /////       await _next(context);
-             ///
+            if (authorizeAttribute == null)
+            {
+                await _next(context);
+                return;
+            }
 
             string authHeader = context.Request.Headers["Authorization"];
             if (authHeader == null || authHeader.Trim()=="")

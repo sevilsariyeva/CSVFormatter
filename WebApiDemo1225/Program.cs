@@ -53,7 +53,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 
-app.UseMiddleware<AuthenticationMiddleware>();
+//app.UseMiddleware<AuthenticationMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
